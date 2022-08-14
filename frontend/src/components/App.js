@@ -64,7 +64,7 @@ function App() {
         .then((res) => {
           //console.log(res)
           setLoggedIn(true);
-          setEmail(res.data.email);
+          setEmail(res.email);
           navigate("/");
         })
         .catch((err) => {
