@@ -3,19 +3,20 @@ const allowedCors = [
   'https://ionova.nomoredomains.sbs',
   'http://ionova.nomoredomains.sbs',
   'http://localhost:3000',
+  'https://localhost:3000',
 ];
-
-const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
 
 // eslint-disable-next-line consistent-return
 module.exports = (req, res, next) => {
   const { method } = req; // Сохраняем тип запроса (HTTP-метод) в соответствующую переменную
   const { origin } = req.headers; // Сохраняем источник запроса в переменную origin
+  const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
   const requestHeaders = req.headers['access-control-request-headers'];
   // проверяем, что источник запроса есть среди разрешённых
   if (allowedCors.includes(origin)) {
     // устанавливаем заголовок, который разрешает браузеру запросы с этого источника
     res.header('Access-Control-Allow-Origin', origin);
+    res.header('Access-Control-Allow-Credentials', true);
   }
   // Если это предварительный запрос, добавляем нужные заголовки
   if (method === 'OPTIONS') {

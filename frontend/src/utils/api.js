@@ -105,6 +105,7 @@
 export const api = new Api({
   baseUrl: "https://api.ionova.nomoredomains.sbs",
   headers: {
+    "Authorization": `Bearer ${localStorage.getItem('jwt')}`,
     "Content-Type": "application/json",
   },
 });
