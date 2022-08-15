@@ -32,11 +32,6 @@ function Card({ card, onCardClick, onCardLike, onCardDelete }) {
         alt={card.name}
         onClick={handleClick}
       />
-      <button
-        className="card__delete"
-        hidden={!isOwn}
-        onClick={handleDeleteClick}
-      ></button>
       <div className="card__info">
         <h2 className="card__title">{card.name}</h2>
         <div className="card__like-section">
@@ -47,6 +42,10 @@ function Card({ card, onCardClick, onCardLike, onCardDelete }) {
           <span className="card__like-button-count">{card.likes.length}</span>
         </div>
       </div>
+      {isOwn && (<button
+        className="card__delete"
+        onClick={handleDeleteClick}
+      ></button>)}
     </li>
   );
 }
