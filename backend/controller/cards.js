@@ -23,7 +23,7 @@ module.exports.createCard = async (req, res, next) => {
       name,
       link,
       owner: req.user._id,
-    }).populate(['owner', 'likes']);
+    });
     return res.status(CREATED).send(card);
   } catch (err) {
     if (err.name === 'ValidationError') {
