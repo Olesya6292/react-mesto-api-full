@@ -9,7 +9,7 @@ const {
 
 module.exports.getCards = async (req, res, next) => {
   try {
-    const cards = await Card.find({}).populate(['owner', 'likes']);
+    const cards = await Card.find({});
     return res.send(cards);
   } catch (err) {
     next(err);
@@ -23,7 +23,7 @@ module.exports.createCard = async (req, res, next) => {
       name,
       link,
       owner: req.user._id,
-    }).populate('owner');
+    });
     return res.status(CREATED).send(card);
   } catch (err) {
     if (err.name === 'ValidationError') {
@@ -40,7 +40,6 @@ module.exports.createCard = async (req, res, next) => {
 module.exports.deleteCard = async (req, res, next) => {
   try {
     const card = await Card.findById(req.params.cardId)
-      .populate(['owner', 'likes'])
       .orFail(new NotFoundError('Карточка не найдена'));
     if (!card.owner.equals(req.user._id)) {
       throw new ForbiddenError('Нельзя удалить чужую карточку');
@@ -59,7 +58,6 @@ module.exports.putLikeCard = async (req, res, next) => {
       { $addToSet: { likes: req.user._id } },
       { new: true },
     )
-      .populate(['owner', 'likes'])
       .orFail(new NotFoundError('Карточка не найдена'));
     return res.send(card);
   } catch (err) {
@@ -79,7 +77,6 @@ module.exports.deleteLikeCard = async (req, res, next) => {
       { $pull: { likes: req.user._id } },
       { new: true },
     )
-      .populate(['owner', 'likes'])
       .orFail(new NotFoundError('Карточка не найдена'));
     return res.send(card);
   } catch (err) {
