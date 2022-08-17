@@ -25,24 +25,13 @@ const limiter = rateLimit({
 
 app.use(limiter);
 
-mongoose
-  .connect('mongodb://localhost:27017/mestodb', {
-    useNewUrlParser: true,
-  })
-  .then(() => {
-    console.log('Connected to db');
-  })
-  .catch(() => {
-    console.log('Error to db connection');
-  });
+app.use(cors());
 
 app.get('/crash-test', () => {
   setTimeout(() => {
     throw new Error('Сервер сейчас упадёт');
   }, 0);
 });
-
-app.use(cors());
 
 app.use(router);
 
@@ -57,6 +46,17 @@ app.use((err, req, res, next) => {
   });
   next();
 });
+
+mongoose
+  .connect('mongodb://localhost:27017/mestodb', {
+    useNewUrlParser: true,
+  })
+  .then(() => {
+    console.log('Connected to db');
+  })
+  .catch(() => {
+    console.log('Error to db connection');
+  });
 
 app.listen(PORT, () => {
   console.log(`Server listen on ${PORT}`);
