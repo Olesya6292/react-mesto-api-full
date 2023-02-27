@@ -103,7 +103,7 @@
 }
 
 export const api = new Api({
-  baseUrl: "https://api.ionova.nomoredomains.sbs",
+  baseUrl: "https://react-mesto-api.onrender.com",
   headers: {
     "Authorization": `Bearer ${localStorage.getItem('jwt')}`,
     "Content-Type": "application/json",

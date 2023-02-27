@@ -1,4 +1,4 @@
-export const BASE_URL = 'https://api.ionova.nomoredomains.sbs';
+export const BASE_URL = 'https://react-mesto-api.onrender.com';
 
 const handleResponse = (res) => {
   if (res.ok) {

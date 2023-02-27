@@ -5,12 +5,12 @@ const mongoose = require('mongoose');
 const { errors } = require('celebrate');
 const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
-const cors = require('./middlewares/cors');
+const cors = require('cors');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { DEFAULT } = require('./utils/constants');
 const router = require('./routes');
 
-const { PORT = 3000 } = process.env;
+const { PORT = 3000, DATABASE_URL = 'mongodb://localhost:27017/mestodb' } = process.env;
 
 const app = express();
 
@@ -25,13 +25,7 @@ const limiter = rateLimit({
 
 app.use(limiter);
 
-app.use(cors);
-
-app.get('/crash-test', () => {
-  setTimeout(() => {
-    throw new Error('Сервер сейчас упадёт');
-  }, 0);
-});
+app.use(cors());
 
 app.use(router);
 
@@ -48,7 +42,7 @@ app.use((err, req, res, next) => {
 });
 
 mongoose
-  .connect('mongodb://localhost:27017/mestodb', {
+  .connect(DATABASE_URL, {
     useNewUrlParser: true,
   })
   .then(() => {
