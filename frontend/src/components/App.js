@@ -212,13 +212,13 @@ function App() {
     auth
       .authorize(email, password)
       .then((res) => {
-        //console.log(res);
+        console.log(res);
         localStorage.setItem("jwt", res.token);
         setLoggedIn(true);
         navigate("/");
       })
       .catch((err) => {
-        console.error(err);
+        console.info(err);
         setInfoTooltipStatus({
           image: negativ,
           title: "Что-то пошло не так! Попробуйте ещё раз.",
