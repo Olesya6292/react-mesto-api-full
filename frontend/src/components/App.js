@@ -218,7 +218,7 @@ function App() {
         navigate("/");
       })
       .catch((err) => {
-        console.info(err);
+        console.error(err.response.data);
         setInfoTooltipStatus({
           image: negativ,
           title: "Что-то пошло не так! Попробуйте ещё раз.",
