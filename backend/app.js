@@ -10,8 +10,7 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { DEFAULT } = require('./utils/constants');
 const router = require('./routes');
 
-//const { PORT = 3000, DATABASE_URL = 'mongodb://localhost:27017/mestodb' } = process.env;
-const { PORT = 10000, DATABASE_URL = 'mongodb+srv://admin:sYN1Ce9PSWnes438@mesto.fqbpoam.mongodb.net/?retryWrites=true&w=majority' } = process.env;
+const { PORT = 3000, DATABASE_URL = 'mongodb://localhost:27017/mestodb' } = process.env;
 
 const app = express();
 
